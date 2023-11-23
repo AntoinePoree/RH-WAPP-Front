@@ -58,8 +58,9 @@ export class CreateFormComponent {
 
   public onSubmit() {
     const form = this.personForm.getRawValue() as IPerson;
+    form.jobs = [];
     console.log(form);
-    this.personService.createPerson(form);
+    this.personService.createPerson(form).subscribe((res) => console.log(res));
   }
 
   public addJob() {
