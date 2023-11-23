@@ -13,7 +13,17 @@ export class PersonService {
   constructor(private http: HttpClient) {}
 
   getList(): Observable<Person[]> {
-    return this.http.get<IPerson[]>(`${API_BASE_URL}/external-users`).pipe(
+    console.log(
+      new Person(
+        'person.id',
+        'person.lastName',
+        'person.firstName',
+        new Date('1997/08/19').toString(),
+        []
+      )
+    );
+
+    return this.http.get<IPerson[]>(`${API_BASE_URL}/persons`).pipe(
       map((persons) =>
         persons.map(
           (person) =>
@@ -26,7 +36,23 @@ export class PersonService {
             )
         )
       ),
-      catchError((err) => of([]))
+      catchError((err) =>
+        of([
+          new Person(
+            'person.id',
+            'person.lastName',
+            'person.firstName',
+            new Date('1997/08/19').toString(),
+            []
+          ),
+        ])
+      )
     );
+  }
+
+  createPerson(person: IPerson): Observable<IPerson> {
+    return this.http.post<IPerson>(`${API_BASE_URL}/person`, {
+      ...person,
+    });
   }
 }

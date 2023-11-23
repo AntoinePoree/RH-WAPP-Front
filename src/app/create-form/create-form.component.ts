@@ -16,10 +16,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import { Person } from '../models/person.model';
+import { IPerson, Person } from '../models/person.model';
 import { Job } from '../models/job.model';
 import { PersonService } from '../services/person.service';
 import { HttpClient } from '@angular/common/http';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-create-form',
@@ -35,9 +36,10 @@ import { HttpClient } from '@angular/common/http';
     MatNativeDateModule,
     MatButtonModule,
     MatIconModule,
+    NgStyle,
   ],
 })
-export class CreateFormComponent implements OnInit {
+export class CreateFormComponent {
   personForm;
   model = new Person('1', 'Tom', 'Cruise', new Date().toString(), []);
 
@@ -54,19 +56,18 @@ export class CreateFormComponent implements OnInit {
     return this.personForm.get('jobs') as FormArray;
   }
 
-  ngOnInit() {
-    console.log(this.model);
-    // todo
-    this.personService.getList();
-  }
-
   public onSubmit() {
-    console.log(this.personForm);
-    // todo send to server
+    const form = this.personForm.getRawValue() as IPerson;
+    console.log(form);
+    this.personService.createPerson(form);
   }
 
   public addJob() {
     this.jobsForm.push(this.newJob());
+  }
+
+  public removeJob(i: number) {
+    this.jobsForm.removeAt(i);
   }
 
   private newJob(): FormGroup {

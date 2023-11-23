@@ -20,4 +20,10 @@ export class Person implements IPerson {
   get fullName() {
     return `${this.firstName} ${this.lastName}`;
   }
+
+  get age() {
+    const ageDifMs = Date.now() - new Date(this.birthDate).getTime();
+    const ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  }
 }
