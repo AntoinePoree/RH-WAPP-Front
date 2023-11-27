@@ -21,7 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'RH-WAPP-Front';
+  title = 'RH WAPP Front';
 
   displayForm: WritableSignal<boolean> = signal(false);
 }
