@@ -17,9 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { IPerson, Person } from '../models/person.model';
-import { Job } from '../models/job.model';
 import { PersonService } from '../services/person.service';
-import { HttpClient } from '@angular/common/http';
 import { NgStyle } from '@angular/common';
 
 @Component({
@@ -48,33 +46,33 @@ export class CreateFormComponent {
       firstName: this.fb.control('', Validators.required),
       lastName: this.fb.control('', Validators.required),
       birthDate: this.fb.control('', Validators.required),
-      jobs: this.fb.array([this.newJob()]),
+      skills: this.fb.array([this.newJob()]),
     });
   }
 
-  get jobsForm(): FormArray {
-    return this.personForm.get('jobs') as FormArray;
+  get skillsForm(): FormArray {
+    return this.personForm.get('skills') as FormArray;
   }
 
   public onSubmit() {
     const form = this.personForm.getRawValue() as IPerson;
-    form.jobs = [];
+    form.skills = [];
     console.log(form);
     this.personService.createPerson(form).subscribe((res) => console.log(res));
   }
 
   public addJob() {
-    this.jobsForm.push(this.newJob());
+    this.skillsForm.push(this.newJob());
   }
 
   public removeJob(i: number) {
-    this.jobsForm.removeAt(i);
+    this.skillsForm.removeAt(i);
   }
 
   private newJob(): FormGroup {
     return this.fb.group({
       name: this.fb.control('', Validators.required),
-      jobName: this.fb.control('', Validators.required),
+      skillName: this.fb.control('', Validators.required),
       startDate: this.fb.control('', Validators.required),
       endDate: this.fb.control(''),
     });
