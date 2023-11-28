@@ -1,11 +1,11 @@
-import { ISkill } from './skill.model';
+import { IJob } from './job.model';
 
 export interface IPerson {
   id: string;
   lastName: string;
   firstName: string;
   birthDate: string;
-  skills: ISkill[];
+  jobs: IJob[];
 }
 
 export class Person implements IPerson {
@@ -14,7 +14,7 @@ export class Person implements IPerson {
     public lastName: string,
     public firstName: string,
     public birthDate: string,
-    public skills: ISkill[]
+    public jobs: IJob[]
   ) {}
 
   get fullName() {

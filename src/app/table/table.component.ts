@@ -10,9 +10,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 export interface PeriodicElement {
   name: string;
   birthDate: string;
-  level: number;
-  type: string;
-  skillName: string;
+  startDate: string;
+  companyName: string;
+  jobName: string;
 }
 
 @Component({
@@ -33,10 +33,11 @@ export class TableComponent implements OnInit {
   loading = signal(true);
   displayedColumns: string[] = [
     'name',
-    // 'birthDate',
-    'skillName',
-    'type',
-    'level',
+    'birthDate',
+    'companyName',
+    'jobName',
+    'startDate',
+    'endDate',
   ];
 
   dataSource = new MatTableDataSource<PeriodicElement>([]);
@@ -51,13 +52,13 @@ export class TableComponent implements OnInit {
       if (res && res.length) {
         this.dataSource = new MatTableDataSource(
           res.map((person, index) => {
-            const target = person.skills[index];
+            const target = person.jobs[index];
             return {
               name: person.fullName,
               birthDate: person.age.toString(),
-              type: target ? target.name : '🔎',
-              skillName: target && target.type ? target.type : '🔎',
-              level: target && target.level ? target.level : 0,
+              startDate: target ? target.startDate : '',
+              companyName: target ? target.name : '🔎',
+              jobName: target ? target.jobName : '🔎',
             };
           })
         );

@@ -32,7 +32,7 @@ export class PersonService {
               person.lastName,
               person.firstName,
               person.birthDate,
-              person.skills
+              person.jobs
             )
         )
       ),
@@ -40,17 +40,10 @@ export class PersonService {
         of([
           new Person(
             'person.id',
-            'Bernard',
-            'Pouet',
+            'person.lastName',
+            'person.firstName',
             new Date('1997/08/19').toString(),
-            [
-              {
-                id: '1',
-                level: 2,
-                type: 'Oui',
-                name: 'Pouet',
-              },
-            ]
+            []
           ),
         ])
       )
